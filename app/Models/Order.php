@@ -15,7 +15,15 @@ class Order extends Model
         'status'
     ];
 
+    protected $with = ['user', 'products'];
+
     public function products(){
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class, 'order_products')
+
+            ->withPivot('cantidad');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
